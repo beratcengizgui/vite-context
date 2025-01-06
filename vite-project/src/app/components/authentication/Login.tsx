@@ -21,7 +21,10 @@ const LoginPage: React.FC = () => {
     if (username === "admin" && password === "password") {
       login(username, password);
       navigate("/"); // Giriş başarılı, anasayfaya yönlendir
-    } else {
+    } if (username === "emrah" && password === "123") {
+      login(username, password);
+      navigate("/"); // Giriş başarılı, anasayfaya yönlendir
+    }else {
       setErrorMessage("Kullanıcı adı veya şifre yanlış.");
     }
   };
