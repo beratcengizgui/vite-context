@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useUserContext } from "../../contexts/UserContext";
 import styled from "styled-components";
 import { Pagination } from "@mui/material";
-import { Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const MovieMainPage: React.FC = () => {
   const { movies, setPageNumber } = useUserContext();
@@ -18,6 +18,7 @@ const MovieMainPage: React.FC = () => {
     }
   }, [movies]);
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+    console.log('event',event)
     setCurrentPage(page);
     setPageNumber(page);
     console.log('page',page)
@@ -70,34 +71,10 @@ const MainContainer = styled.div`
   background-color: #111;
 `;
 
-const HeaderSection = styled.section`
-  position: relative;
-  height: 300px;
-  background-color: #000;
-`;
 
-const HeroImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(50%);
-`;
 
-const HeroText = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 20px;
-  color: #fff;
-  transform: translateY(-50%);
-  h1 {
-    font-size: 50px;
-    font-weight: bold;
-    margin: 0;
-  }
-  p {
-    font-size: 22px;
-  }
-`;
+
+
 
 const MovieGrid = styled.div`
   cursor: pointer; /* Fare işaretçisini pointer (el işareti) yapar */

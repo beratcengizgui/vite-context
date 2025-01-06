@@ -1,5 +1,5 @@
 // import { GuiAppRouter } from "@guibil/router";
-import { AppFrame } from "./components/AppFrame";
+import AppFrame from "./components/appFrame/AppFrame";
 import { AppContextProvider } from "./contexts/ContextContainer";
 export default function AppContainer() {
   return (

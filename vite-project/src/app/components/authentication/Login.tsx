@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import styled from "styled-components";
-import axios from "axios";
-import httpClient from "../../scripts/httpClient";
+
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -11,7 +10,6 @@ const LoginPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const TMDB_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/"); // Eğer kullanıcı zaten giriş yapmışsa, anasayfaya yönlendir
@@ -21,8 +19,6 @@ const LoginPage: React.FC = () => {
   const handleLogin = (event: React.FormEvent) => {
     event.preventDefault();
     if (username === "admin" && password === "password") {
-      let authentication = httpClient.get("/authentication/guest_session/new");
-      
       login(username, password);
       navigate("/"); // Giriş başarılı, anasayfaya yönlendir
     } else {
