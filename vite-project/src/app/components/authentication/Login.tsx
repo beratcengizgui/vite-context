@@ -21,7 +21,7 @@ const LoginPage: React.FC = () => {
     if (username === "admin" && password === "password") {
       login(username, password);
       navigate("/"); // Giriş başarılı, anasayfaya yönlendir
-    } if (username === "emrah" && password === "emrah") {
+    }else if (username === "emrah" && password === "emrah") {
       login(username, password);
       navigate("/"); // Giriş başarılı, anasayfaya yönlendir
     }else {
