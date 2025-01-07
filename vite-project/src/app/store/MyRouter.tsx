@@ -6,6 +6,7 @@ import ImagePage from "../pages/ImagePage";
 import LoginPage from "../components/authentication/Login";
 import TodoApp from "../components/userPage/TodoApp";
 import DetailPage from "../pages/DetailPage";
+import Favorites from "../pages/Favorites";
 
 const MyRouter: React.FC = () => {
   const { isAuthenticated, loading } = useAuth();
@@ -21,6 +22,7 @@ const MyRouter: React.FC = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={isAuthenticated ? <UserPage /> : <Navigate to="/login" />} />
         <Route path="/images" element={isAuthenticated ? <ImagePage /> : <Navigate to="/login" />} />
+        <Route path="/favorite" element={isAuthenticated ? <Favorites /> : <Navigate to="/login" />} />
         <Route path="/detail/:id" element={isAuthenticated ? <DetailPage /> : <Navigate to="/login" />} />
         <Route path="/todos" element={isAuthenticated ? <TodoApp /> : <Navigate to="/login" />} />
       </Routes>
