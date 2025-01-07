@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Badge, Pagination } from "@mui/material";
+import { Badge} from "@mui/material";
 import httpClient from "../scripts/httpClient"; // Ensure you have the correct httpClient configuration
 import { useNavigate } from "react-router-dom";
 
@@ -11,7 +11,7 @@ const TrendingMoviesPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState<string>(""); // State for the search query
   const navigate = useNavigate();
-
+    console.log('paginate', paginate,currentPage,searchQuery,setCurrentPage);
   useEffect(() => {
     const fetchTrendingMovies = async () => {
       try {
@@ -47,12 +47,7 @@ const TrendingMoviesPage: React.FC = () => {
     }
   };
 
-  const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
-    page: number
-  ) => {
-    setCurrentPage(page);
-  };
+
 
   return (
     <MainContainer>
@@ -153,11 +148,6 @@ const SearchInput = styled.input`
   }
 `;
 
-const PaginationWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-`;
 
 const MovieGrid = styled.div`
   display: grid;

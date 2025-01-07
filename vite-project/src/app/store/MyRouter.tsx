@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import UserPage from "../pages/UserPage";
 import ImagePage from "../pages/ImagePage";
