@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useUserContext } from "../../contexts/UserContext";
 import styled from "styled-components";
-import { Badge, Button, Pagination } from "@mui/material";
+import {Button, Pagination } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Logout } from "../authentication/Logout";
 
