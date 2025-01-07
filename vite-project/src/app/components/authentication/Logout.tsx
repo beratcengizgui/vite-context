@@ -1,4 +1,5 @@
 
+import { Button } from "@mui/material";
 import { useAuth } from "../../contexts/AuthContext";
 
 export const Logout = () => {
@@ -7,6 +8,6 @@ export const Logout = () => {
     return null;
   }
   return (
-    <button onClick={logout}>Logout</button>
+    <Button onClick={logout}>Logout</Button>
   );
 }

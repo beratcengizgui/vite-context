@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useUserContext } from "../../contexts/UserContext";
 import styled from "styled-components";
-import { Badge, Pagination } from "@mui/material";
+import { Badge, Button, Pagination } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { Logout } from "../authentication/Logout";
 
 const MovieMainPage: React.FC = () => {
   const { movies, setPageNumber, setSearch } = useUserContext();
@@ -30,15 +31,18 @@ const MovieMainPage: React.FC = () => {
   return (
     <MainContainer>
       <Header>
+     
         <div style={{ display: "flex", justifyContent: "end", cursor: "pointer" }}>
-          <Badge
+          <Logout></Logout>
+          <Button
+          style={{marginLeft: "10px"}}
             color="error"
             onClick={() => {
               navigate("/populermovies");
             }}
           >
             Trending
-          </Badge>
+          </Button>
         </div>
         <h1>Movie Explorer</h1>
         <p>Discover the best movies, all in one place.</p>
