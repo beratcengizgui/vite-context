@@ -1,90 +1,90 @@
 import React, { useEffect, useState } from "react";
-import { useUserContext } from "../../contexts/UserContext";
 import styled from "styled-components";
 import { Badge, Pagination } from "@mui/material";
+import httpClient from "../scripts/httpClient"; // Ensure you have the correct httpClient configuration
 import { useNavigate } from "react-router-dom";
 
-const MovieMainPage: React.FC = () => {
-  const { movies, setPageNumber, setSearch } = useUserContext();
-  const [movieList, setMovieList] = useState<any[]>([]);
-  const [paginate, setPaginate] = useState<number>(1);
+const TrendingMoviesPage: React.FC = () => {
+  const [movies, setMovies] = useState<any[]>([]);
+  const [filteredMovies, setFilteredMovies] = useState<any[]>([]); // State for filtered movies based on search query
+  const [paginate, setPaginate] = useState<number>(1); // For pagination if needed
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [searchQuery, setSearchQuery] = useState<string>(""); // State for the search query
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (movies) {
-      setMovieList(movies.results);
-      setPaginate(movies.total_pages);
+    const fetchTrendingMovies = async () => {
+      try {
+        const response = await httpClient.get("/trending/movie/day", {
+          params: {
+            language: "en-US",
+          },
+        });
+        setMovies(response.data.results);
+        setFilteredMovies(response.data.results); // Initialize filteredMovies with all movies initially
+        setPaginate(1); // Set pagination if applicable
+      } catch (error) {
+        console.error("Failed to fetch trending movies:", error);
+      }
+    };
+
+    fetchTrendingMovies();
+  }, []);
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+
+    // Filter movies based on search query
+    if (query.trim() === "") {
+      setFilteredMovies(movies); // If search is empty, show all movies
+    } else {
+      setFilteredMovies(
+        movies.filter((movie) =>
+          movie.title.toLowerCase().includes(query.toLowerCase())
+        )
+      );
     }
-  }, [movies]);
+  };
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     page: number
   ) => {
-    console.log("event", event);
     setCurrentPage(page);
-    setPageNumber(page);
   };
 
   return (
     <MainContainer>
       <Header>
-        <div style={{ display: "flex", justifyContent: "end", cursor: "pointer" }}>
+        <div
+          style={{ display: "flex", justifyContent: "end", cursor: "pointer" }}
+        >
           <Badge
             color="error"
             onClick={() => {
-              navigate("/populermovies");
+              navigate("/");
             }}
           >
-            Trending
+            Back
           </Badge>
         </div>
-        <h1>Movie Explorer</h1>
-        <p>Discover the best movies, all in one place.</p>
+        <h1>Trending Movies</h1>
+        <p>Discover the trending movies of the day.</p>
       </Header>
       <SearchWrapper>
         <SearchInput
           type="text"
           placeholder="Search movies..."
-          // value={searchQuery}
-          onChange={(e: any) => {
-            setSearch(e.target.value);
-          }}
+          value={searchQuery}
+          onChange={handleSearchChange}
         />
       </SearchWrapper>
-      <PaginationWrapper>
-        <Pagination
-          count={paginate}
-          page={currentPage}
-          onChange={handlePageChange}
-          sx={{
-            "& .MuiPaginationItem-root": {
-              color: "#f5c518", // Sayfa numaraları için renk
-              backgroundColor: "#333", // Normal durum arka plan rengi
-              borderRadius: "5px",
-              "&:hover": {
-                backgroundColor: "#444", // Hover durumunda arka plan rengi
-              },
-            },
-            "& .MuiPaginationItem-ellipsis": {
-              color: "#f5c518", // Ellipsis (3 nokta) için renk
-            },
-            "& .MuiPaginationItem-page.Mui-selected": {
-              backgroundColor: "#f5c518", // Aktif sayfa için renk
-              color: "#111", // Aktif sayfa numarasının rengi
-              "&:hover": {
-                backgroundColor: "#f5c518", // Hover durumunda aktif sayfa rengi
-              },
-            },
-          }}
-        />
-      </PaginationWrapper>
       <MovieGrid>
-        {movieList && movieList.length > 0 ? (
-          movieList.map((movie: any, index: number) => (
+        {filteredMovies && filteredMovies.length > 0 ? (
+          filteredMovies.map((movie: any) => (
             <MovieCard
-              key={index}
+              key={movie.id}
               onClick={() => navigate(`/detail/${movie.id}`)}
             >
               <MoviePoster
@@ -102,7 +102,7 @@ const MovieMainPage: React.FC = () => {
             </MovieCard>
           ))
         ) : (
-          <NoMoviesFound>No movies found</NoMoviesFound>
+          <NoMoviesFound>No trending movies found</NoMoviesFound>
         )}
       </MovieGrid>
     </MainContainer>
@@ -132,6 +132,7 @@ const Header = styled.header`
     color: #ddd;
   }
 `;
+
 const SearchWrapper = styled.div`
   text-align: center;
   padding: 20px;
@@ -151,6 +152,7 @@ const SearchInput = styled.input`
     color: #aaa;
   }
 `;
+
 const PaginationWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -218,4 +220,4 @@ const NoMoviesFound = styled.div`
   padding: 50px 0;
 `;
 
-export default MovieMainPage;
+export default TrendingMoviesPage;
