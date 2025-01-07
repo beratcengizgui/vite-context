@@ -16,7 +16,6 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { useAuth } from "../contexts/AuthContext";
-import httpClient from "../scripts/httpClient";
 import { useUserContext } from "../contexts/UserContext";
 
 const Search = styled("div")(({ theme }) => ({
@@ -60,8 +59,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function AppMenu() {
-  const { logout, isAuthenticated } = useAuth();
-  const {setMovies, setSearch, pageNumber, search} = useUserContext();
+  const { isAuthenticated } = useAuth();
+  const {setSearch} = useUserContext();
   if (!isAuthenticated) {
     return null;
   }

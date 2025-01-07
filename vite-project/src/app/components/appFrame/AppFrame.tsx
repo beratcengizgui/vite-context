@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Logout } from '../authentication/Logout';
 import AppMenu from '../AppMenu';
 
 const AppFrame: React.FC<{ children: React.ReactNode }>  = ({children}) => {
