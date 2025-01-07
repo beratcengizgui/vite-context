@@ -17,20 +17,25 @@ const MovieMainPage: React.FC = () => {
       setPaginate(movies.total_pages);
     }
   }, [movies]);
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    console.log('event',event)
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    page: number
+  ) => {
+    console.log("event", event);
     setCurrentPage(page);
     setPageNumber(page);
-    console.log('page',page)
+    console.log("page", page);
   };
   return (
     <MainContainer>
-       <Pagination
-        count={paginate}       // Toplam sayfa sayısı
-        page={currentPage}       // Şu anki sayfa
-        onChange={handlePageChange} // Sayfa değişimi işlemi
-        style={{backgroundColor: 'white'}}
-      />
+      <div style={{ display: "flex", justifyContent: "center", padding: "20px" }}>
+        <Pagination
+          count={paginate} // Toplam sayfa sayısı
+          page={currentPage} // Şu anki sayfa
+          onChange={handlePageChange} // Sayfa değişimi işlemi
+          style={{ backgroundColor: "grey",borderRadius: "10px" }} 
+        />
+      </div>
       {/* <HeaderSection>
         <HeroText>
           <h1>Welcome to the Movie World</h1>
@@ -41,10 +46,13 @@ const MovieMainPage: React.FC = () => {
       <MovieGrid>
         {movieList && movieList.length > 0 ? (
           movieList.map((movie: any, index: number) => (
-            <MovieCard key={index} onClick={() => navigate(`/detail/${movie.id}`)}>
+            <MovieCard
+              key={index}
+              onClick={() => navigate(`/detail/${movie.id}`)}
+            >
               <MoviePoster
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={movie.title}
               />
               <MovieDetails>
                 <h3>{movie.title}</h3>
@@ -70,11 +78,6 @@ const MainContainer = styled.div`
   color: #fff;
   background-color: #111;
 `;
-
-
-
-
-
 
 const MovieGrid = styled.div`
   cursor: pointer; /* Fare işaretçisini pointer (el işareti) yapar */

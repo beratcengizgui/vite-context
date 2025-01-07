@@ -8,8 +8,11 @@ interface IUser {
 
 interface IUserContext {
   movies: any;
+  pageNumber: any;
+  search: any;
   setMovies: (user: IUser | null) => void;
   setPageNumber: (page : number) => void;
+  setSearch: (search : any) => void;
 }
 
 const UserContext = createContext<IUserContext | undefined>(undefined);
@@ -18,8 +21,10 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [movies, setMovies] = useState<any | null>(null);
+  const [search, setSearch] = useState<any | null>(null);
   const [pageNumber, setPageNumber] = useState<any>(1);
   const httpClient = useHttpClient();
+  // useEffect(() => {console.log('search',search)}, [search]);
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -32,8 +37,16 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
         console.error("Failed to fetch products:", error);
       }
     };
-    fetchUsers();
-  }, [pageNumber]);
+    if(!search) {
+      fetchUsers();
+    } else {
+      httpClient.get(`search/movie?query=${search}&page=${pageNumber}`).then((response) => {
+        setMovies(response.data);
+      });
+    }
+    // fetchUsers();
+    console.log('search',search?.length);
+  }, [pageNumber,search]);
   // bu iki dizi arasında aynı olan elemanları bulup birleştirir eğer aynı yoksa onu ekler sonrasında dönen objeyi diziye çevirip sunar
   // const mergeArrays = (arr1: IUser[], arr2: any[]) => {
   //   const combined = [
@@ -47,7 +60,7 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
   //   return Object.values(uniqueById);
   // };
   return (
-    <UserContext.Provider value={{ movies, setMovies, setPageNumber }}>
+    <UserContext.Provider value={{ movies, setMovies, setPageNumber, setSearch, pageNumber, search }}>
       {children}
     </UserContext.Provider>
   );
