@@ -69,7 +69,7 @@ const MovieDashboard: React.FC = () => {
       <Grid2 container spacing={0}>
         {movieList.map((movie) => {
           return (
-            <Grid2 size={{ xs: 8, md: 2 }}>
+            <Grid2 size={{ xs: 12, sm: 2, md: 2 }}>
               <MovieCard
                 id={movie.id}
                 title={movie.title}
