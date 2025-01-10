@@ -1,9 +1,9 @@
 import React from "react";
-import { useUserContext } from "../../contexts/UserContext";
+import { useMovieContext } from "../../contexts/MovieContext";
 import styled from "styled-components";
 
 const UserNamesArea: React.FC = () => {
-  const { movies } = useUserContext();
+  const { movies } = useMovieContext();
   console.log("asd", movies);
   return (
     <UserNamesContainer>

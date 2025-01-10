@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useUserContext } from "../contexts/UserContext";
+import { useMovieContext } from "../contexts/MovieContext";
 
 export const ImagePage: React.FC = () => {
     const [images, setImages] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true); // Yükleniyor durumu
-    const { movies } = useUserContext();
+    const { movies } = useMovieContext();
 
     // User verisi geldiğinde images'ı güncelle
     useEffect(() => {

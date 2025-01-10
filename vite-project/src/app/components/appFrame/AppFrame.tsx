@@ -1,15 +1,22 @@
-import React, { useEffect } from 'react';
+import MovieBarComponent from "./components/MovieBarComponent";
+import React from "react";
+import { useAuth } from "../../contexts/AuthContext";
 
 
-const AppFrame: React.FC<{ children: React.ReactNode }>  = ({children}) => {
-    useEffect(() => {console.log('Frame')}, []);
-    return (
-        <div>
-            <div style={{display: 'flex', justifyContent: 'justify-content: space-between'}}>
-            </div>
-            <div> {children}</div>
-        </div>
-    );
+const AppFrame: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isAuthenticated } = useAuth();
+  return (
+    <div>
+      {isAuthenticated === true ? (
+        <>
+          <MovieBarComponent />
+        </>
+      ) : (
+        <></>
+      )}
+      <div>{children}</div>
+    </div>
+  );
 };
 
 export default AppFrame;

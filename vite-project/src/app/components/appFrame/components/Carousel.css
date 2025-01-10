@@ -1,0 +1,41 @@
+.carousel {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    max-height: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  
+  .carousel-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 2rem;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.3s ease;
+  }
+  
+  .prev {
+    left: 10px;
+  }
+  
+  .next {
+    right: 10px;
+  }
+  
+  .carousel-button:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  

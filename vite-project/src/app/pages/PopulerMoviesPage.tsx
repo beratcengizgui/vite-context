@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Badge} from "@mui/material";
 import httpClient from "../scripts/httpClient"; // Ensure you have the correct httpClient configuration
 import { useNavigate } from "react-router-dom";
 
@@ -10,6 +9,7 @@ const TrendingMoviesPage: React.FC = () => {
   const [paginate, setPaginate] = useState<number>(1); // For pagination if needed
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState<string>(""); // State for the search query
+  console.log('setSearchQuery',setSearchQuery,movies)
   const navigate = useNavigate();
     console.log('paginate', paginate,currentPage,searchQuery,setCurrentPage);
   useEffect(() => {
@@ -31,50 +31,12 @@ const TrendingMoviesPage: React.FC = () => {
     fetchTrendingMovies();
   }, []);
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const query = event.target.value;
-    setSearchQuery(query);
-
-    // Filter movies based on search query
-    if (query.trim() === "") {
-      setFilteredMovies(movies); // If search is empty, show all movies
-    } else {
-      setFilteredMovies(
-        movies.filter((movie) =>
-          movie.title.toLowerCase().includes(query.toLowerCase())
-        )
-      );
-    }
-  };
+ 
 
 
 
   return (
     <MainContainer>
-      <Header>
-        <div
-          style={{ display: "flex", justifyContent: "end", cursor: "pointer" }}
-        >
-          <Badge
-            color="error"
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Back
-          </Badge>
-        </div>
-        <h1>Trending Movies</h1>
-        <p>Discover the trending movies of the day.</p>
-      </Header>
-      <SearchWrapper>
-        <SearchInput
-          type="text"
-          placeholder="Search movies..."
-          value={searchQuery}
-          onChange={handleSearchChange}
-        />
-      </SearchWrapper>
       <MovieGrid>
         {filteredMovies && filteredMovies.length > 0 ? (
           filteredMovies.map((movie: any) => (
@@ -112,41 +74,7 @@ const MainContainer = styled.div`
   min-height: 100vh;
 `;
 
-const Header = styled.header`
-  text-align: center;
-  padding: 30px 20px;
-  background-color: #1a1a1a;
-  color: #f5c518;
-  h1 {
-    font-size: 36px;
-    margin: 0;
-  }
-  p {
-    font-size: 18px;
-    margin-top: 10px;
-    color: #ddd;
-  }
-`;
 
-const SearchWrapper = styled.div`
-  text-align: center;
-  padding: 20px;
-`;
-
-const SearchInput = styled.input`
-  width: 80%;
-  max-width: 600px;
-  padding: 10px;
-  font-size: 16px;
-  background-color: #333;
-  border: 1px solid #f5c518;
-  border-radius: 5px;
-  color: #fff;
-  outline: none;
-  ::placeholder {
-    color: #aaa;
-  }
-`;
 
 
 const MovieGrid = styled.div`

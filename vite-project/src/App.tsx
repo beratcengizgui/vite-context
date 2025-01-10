@@ -1,6 +1,6 @@
 import React from "react";
 import { AppContextProvider } from "./app/contexts/ContextContainer";
-import MyRouter from "./app/store/MyRouter";
+import MovieRouter from "./app/store/MovieRouter";
 import AppFrame from "./app/components/appFrame/AppFrame";
 import {
   HashRouter as Router,
@@ -10,7 +10,7 @@ const App: React.FC = () => {
     <Router>
       <AppContextProvider>
         <AppFrame>
-          <MyRouter />
+          <MovieRouter />
         </AppFrame>
       </AppContextProvider>
     </Router>

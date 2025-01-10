@@ -4,7 +4,6 @@ import { useAuth } from "../contexts/AuthContext";
 import UserPage from "../pages/UserPage";
 import ImagePage from "../pages/ImagePage";
 import LoginPage from "../components/authentication/Login";
-import TodoApp from "../components/userPage/TodoApp";
 import DetailPage from "../pages/DetailPage";
 import PopulerMoviesPage from "../pages/PopulerMoviesPage";
 
@@ -24,7 +23,6 @@ const MyRouter: React.FC = () => {
         <Route path="/images" element={isAuthenticated ? <ImagePage /> : <Navigate to="/login" />} />
         <Route path="/populermovies" element={isAuthenticated ? <PopulerMoviesPage /> : <Navigate to="/login" />} />
         <Route path="/detail/:id" element={isAuthenticated ? <DetailPage /> : <Navigate to="/login" />} />
-        <Route path="/todos" element={isAuthenticated ? <TodoApp /> : <Navigate to="/login" />} />
       </Routes>
  
   );
