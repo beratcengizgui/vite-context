@@ -12,49 +12,49 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import Radio from "@mui/material/Radio";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import RadioGroup from "@mui/material/RadioGroup";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../../../contexts/LanguageContext";
 
 const pages = [
   { name: "Populer", path: "/populermovies" },
-  { name: "Pricing", path: "/pricing" },
-  { name: "Blog", path: "/blog" },
+  // { name: "Pricing", path: "/pricing" },
+  // { name: "Blog", path: "/blog" },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
+
 const LanguageSelector = () => {
   const { language, setLanguage } = useLanguage();
 
-  const handleLanguageChange = (lang: "en" | "tr") => {
-    setLanguage(lang); // Dil bilgisini değiştir
+  const handleLanguageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLanguage(event.target.value as "en" | "tr");
   };
 
   return (
-    <div style={styles.container}>
-      <button
-        onClick={() => handleLanguageChange("en")}
-        disabled={language === "en"}
-        style={{
-          ...styles.button,
-          backgroundColor: language === "en" ? "#007bff" : "#f8f9fa", // Seçili dilin butonu mavi, diğerlerini açık gri yapıyoruz
-          color: language === "en" ? "#fff" : "#007bff",
-        }}
+    <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+      <RadioGroup
+        row
+        value={language}
+        onChange={handleLanguageChange}
+        sx={{ display: "flex", alignItems: "center" }}
       >
-        English
-      </button>
-      <button
-        onClick={() => handleLanguageChange("tr")}
-        disabled={language === "tr"}
-        style={{
-          ...styles.button,
-          backgroundColor: language === "tr" ? "#007bff" : "#f8f9fa", // Seçili dilin butonu mavi, diğerlerini açık gri yapıyoruz
-          color: language === "tr" ? "#fff" : "#007bff",
-        }}
-      >
-        Türkçe
-      </button>
-    </div>
+        <FormControlLabel
+          value="en"
+          control={<Radio color="primary" />}
+          label="English"
+        />
+        <FormControlLabel
+          value="tr"
+          control={<Radio color="primary" />}
+          label="Türkçe"
+        />
+      </RadioGroup>
+    </Box>
   );
 };
+
 function MovieBarComponent() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -85,15 +85,15 @@ function MovieBarComponent() {
   };
 
   return (
-    <AppBar position="static" style={{backgroundColor:'black',margin:'0px !important',padding:'0px'}} >
-      <Container maxWidth="xl" >
+    <AppBar position="static" style={{ backgroundColor: "black" }}>
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            onClick={() => handleNavigate("/")}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -102,6 +102,7 @@ function MovieBarComponent() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              cursor:'pointer'
             }}
           >
             LOGO
@@ -205,24 +206,9 @@ function MovieBarComponent() {
           </Box>
         </Toolbar>
       </Container>
-      <LanguageSelector/>
+      <LanguageSelector />
     </AppBar>
   );
 }
-const styles = {
-  container: {
-    display: "flex",
-    justifyContent: "end",
-    marginTop: "20px", // Üstten biraz boşluk ekledik
-  },
-  button: {
-    padding: "10px 20px",
-    borderRadius: "5px",
-    border: "1px solid #007bff", // Buton kenarlarını mavi yapıyoruz
-    margin: "0 10px", // Butonlar arasında biraz boşluk
-    fontSize: "16px",
-    cursor: "pointer",
-    transition: "background-color 0.3s, color 0.3s", // Hover sırasında geçiş efekti ekliyoruz
-  },
-};
+
 export default MovieBarComponent;
