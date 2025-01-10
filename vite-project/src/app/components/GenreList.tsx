@@ -1,6 +1,5 @@
-
 import { Genre } from "../enums/Genre/Genre";
-import { Button } from "@mui/material";
+import { Chip} from "@mui/material";
 import { useMovieContext } from "../contexts/MovieContext";
 import { useLanguage } from "../contexts/LanguageContext";
 import { GenreTranslations } from "../enums/Genre/GenreTranslations";
@@ -18,22 +17,17 @@ const GenreList = () => {
   };
 
   return (
-    <div>
-      <ul>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          {genreEntries.slice(1, 7).map(([key, value]) => (
-            <label key={key} style={{ marginLeft: "50px" }}>
-              <Button
-                color="warning"
-                onClick={() => getGenreMovies(value as Genre)}
-              >
-                <strong>{GenreTranslations[value as Genre][language]}</strong>
-              </Button>
-            </label>
-          ))}
-        </div>
-      </ul>
-    </div>
+    <>
+      {genreEntries.slice(1, 7).map(([key, value]) => (
+        <Chip
+        about={key}
+          style={{marginTop:'10px', marginLeft:'10px'}}
+          color="success"
+          onClick={() => getGenreMovies(value as Genre)}
+          label={GenreTranslations[value as Genre][language]}
+        ></Chip>
+      ))}
+    </>
   );
 };
 

@@ -1,33 +1,27 @@
-
 import styled from "styled-components";
 import { useMovieContext } from "../../../contexts/MovieContext";
 interface ISearchComponent {
   apiUrl: string;
 }
 const SearchComponent = (props: ISearchComponent) => {
-  console.log('props',props)
+  console.log("props", props);
   const { setSearch } = useMovieContext();
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   };
   return (
     <>
-      <SearchWrapper >
-        <SearchInput
-          type="text"
-          placeholder="Search movies..."
-          // value={search}
-          onChange={handleSearchChange}
-        />
-      </SearchWrapper>
+      <SearchInput
+        style={{marginTop:'15px'}}
+        type="text"
+        placeholder="Search movies..."
+        // value={search}
+        onChange={handleSearchChange}
+      />
     </>
   );
 };
 export default SearchComponent;
-const SearchWrapper = styled.div`
-  text-align: center;
-  padding: 20px;
-`;
 
 const SearchInput = styled.input`
   width: 80%;
